@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -24,10 +25,11 @@ class PostController extends Controller
     public function index1()
     {
         //
+        
         $categories=new Category;
         $categories=$categories->all();
         $posts= Post::all();
-        return view('home',["posts"=>$posts,"categories"=>$categories]);
+        return view('home',["posts"=>$posts,"categories"=>$categories ]);
     }
 
     /**
@@ -88,6 +90,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        
         $categories=new Category;
         $categories=$categories->all();
         return view("admin.viewpost",["post"=>$post,"categories"=>$categories]);
@@ -95,9 +98,13 @@ class PostController extends Controller
 
     public function singlePost(Post $post)
     {
+
+        
+        $comments = new Comment;
+        $comments=$comments->all();
         $categories=new Category;
         $categories=$categories->all();
-        return view("postdetails",["post"=>$post,"categories"=>$categories]);
+        return view("postdetails",["post"=>$post,"categories"=>$categories , "comments"=>$comments]);
     }
 
     

@@ -61,6 +61,25 @@ https://templatemo.com/tm-551-stand-blog
               <li class="nav-item">
                 <a class="nav-link" href="/contactus">Contact Us</a>
               </li>
+              @if (Route::has('login'))
+						@auth
+						<li class="colorlib-active"> <a id="navbarDropdown" class="nav-link" href="#">
+								Hello:{{ Auth::user()->name }}
+							</a></li>
+						<li class="colorlib-active"> <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+								{{ __('Logout') }}
+							</a></li>
+
+						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+							@csrf
+						</form>
+						@else
+						<li class="colorlib-active"> <a href="/register" title="" class="nav-link">Register</a></li>
+						<li class="colorlib-active"> <a class="nav-link" href="{{ route('login') }}">Login</a></li>
+						@endauth
+						@endif
+
             </ul>
           </div>
         </div>

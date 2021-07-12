@@ -59,15 +59,18 @@
                                     <img src="{{asset($post['image'])}}" class="rounded-circle" width="60" height="50" /></td>
                                     </td>
                                         <td>
+                                        @if (Auth::check())
                                             <a href="{{route('posts.edit',$post)}}"><span class="fa fa-edit"></span></a>
                                             <a class="text-success m-l-5" href="{{route('posts.show',$post)}}"><span class="fa fa-eye"></span></a>
                                             <form action="{{route('posts.destroy',$post)}}" method="Post" enctype="multipart/form-data" style="display:inline-block;">
+                                          
                       @csrf
                       @method("delete")
                      
                       <button type="submit"  value="Delete"
                       class="fa fa-trash"
                               > </button>
+                              @endif  
                              
                        </form>
                                         </td>

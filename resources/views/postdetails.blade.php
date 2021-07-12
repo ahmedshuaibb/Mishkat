@@ -39,7 +39,7 @@
                       <a href="#"><h4>{{$post["title"]}}</h4></a>
                       <ul class="post-info">
                         <li><a href="#">Admin</a></li>
-                        <li><a href="#">May 12, 2020</a></li>
+                        <li><a href="#">{{$post->created_at->diffForHumans()}}</a></li>
                         <li><a href="#">10 Comments</a></li>
                       </ul>
                       <p>{{$post["body"]}}</p>
@@ -75,15 +75,19 @@
                           <div class="author-thumb">
                             <img src="assets/images/comment-author-01.jpg" alt="">
                           </div>
+                          @foreach($comments as $comment)
                           <div class="right-content">
-                            <h4>Charles Kate<span>May 16, 2020</span></h4>
-                            <p>Fusce ornare mollis eros. Duis et diam vitae justo fringilla condimentum eu quis leo. Vestibulum id turpis porttitor sapien facilisis scelerisque. Curabitur a nisl eu lacus convallis eleifend posuere id tellus.</p>
+                            <h4>{{$comment['name']}}<span>{{$comment->created_at->diffForHumans()}}</span></h4>
+                            <p>{{$comment['comment']}} </p>
                           </div>
+                          
+                          @endforeach
                         </li>
                       </ul>
                     </div>
                   </div>
                 </div>
+
                 @if (Auth::check())
                 <div class="col-lg-12">
                   <div class="sidebar-item submit-comment">
@@ -91,26 +95,30 @@
                       <h2>Your comment</h2>
                     </div>
                     <div class="content">
-                      <form id="comment" action="#" method="post">
+                    @if(session()->has('message'))
+                                  <div class="alert alert-success">
+                                   {{ session()->get('message') }}
+                                 </div>
+                                 @endif             
+
+                      <form  action="{{route('comment' , $post->id) }}" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      
                         <div class="row">
                           <div class="col-md-6 col-sm-12">
                             <fieldset>
                               <input name="name" type="text" id="name" placeholder="Your name" required="">
+                              <label class="text-danger"> {{$errors->first("name")}}</label>
                             </fieldset>
                           </div>
-                          <div class="col-md-6 col-sm-12">
-                            <fieldset>
-                              <input name="email" type="text" id="email" placeholder="Your email" required="">
-                            </fieldset>
-                          </div>
-                          <div class="col-md-12 col-sm-12">
-                            <fieldset>
-                              <input name="subject" type="text" id="subject" placeholder="Subject">
-                            </fieldset>
-                          </div>
+                          
+                          
                           <div class="col-lg-12">
                             <fieldset>
-                              <textarea name="message" rows="6" id="message" placeholder="Type your comment" required=""></textarea>
+                              <!-- <textarea name="Comment" rows="6" id="message" placeholder="Type your comment" required=""></textarea>
+                              <label class="text-danger"> {{$errors->first("comment")}}</label> -->
+                              <textarea class="form-control" rows="3" name="comment" id="note" placeholder="Note About Course ..."></textarea>
+                            <label class="text-danger"> {{$errors->first("comment")}}</label>
                             </fieldset>
                           </div>
                           <div class="col-lg-12">
@@ -119,6 +127,7 @@
                             </fieldset>
                           </div>
                         </div>
+                        
                       </form>
                     </div>
                   </div>

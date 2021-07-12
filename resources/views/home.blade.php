@@ -18,7 +18,7 @@
                 <a href="{{route('singlePost.show',$post['id'])}}"><h4>{{$post["title"]}}</h4></a>
                 <ul class="post-info">
                   <li><a href="#">Admin</a></li>
-                  <li><a href="#">May 12, 2020</a></li>
+                  <li><a href="#">{{$post->created_at->diffForHumans()}}</a></li>
                   <li><a href="#">12 Comments</a></li>
                 </ul>
               </div>
@@ -51,7 +51,7 @@
                       <a href="{{route('singlePost.show',$post['id'])}}"><h4>{{$post["title"]}}</h4></a>
                       <ul class="post-info">
                         <li><a href="#">Admin</a></li>
-                        <li><a href="#">May 31, 2020</a></li>
+                        <li><a href="#">{{$post->created_at->diffForHumans()}}</a></li>
                         <li><a href="#">12 Comments</a></li>
                       </ul>
                       <p>{{$post["body"]}}</p>

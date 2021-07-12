@@ -58,4 +58,10 @@ Route::resource('categories', Controllers\CategoryController::class);
 Route::resource('posts', Controllers\PostController::class);
 
 
-Route::resource('comments', Controllers\CommentController::class);
+Route::post('/feedBack/{id}',[Controllers\CommentController::class,'feedBack'])
+-> name('comment');
+
+
+Route::get('/comment', [Controllers\CommentController::class,'comment'] )
+-> name('show');
+
